@@ -17,14 +17,16 @@ from ask_sdk_model import Response
 # =========================================================================================================================================
 # TODO: The items below this comment need your attention.
 # =========================================================================================================================================
+CREATE_CHARACTER_ASK_NAME = "¿Como quieres llamar a tu personaje?"
+SKILL_CHARACTER = "Crear personaje"
 SKILL_NAME = "Datos espaciales en español"
 GET_FACT_MESSAGE = "Aquí tienes un dato: "
 HELP_MESSAGE = "Puedes decir: Dame un dato espacial o puedes decir adios... ¿Con que te puedo ayudar?"
 HELP_REPROMPT = "¿Con que te puedo ayudar?"
 STOP_MESSAGE = "¡Adios!"
 FALLBACK_MESSAGE = "The Space Facts skill can't help you with that.  It can help you discover facts about space if you say tell me a space fact. What can I help you with?"
-FALLBACK_REPROMPT = 'What can I help you with?'
-EXCEPTION_MESSAGE = "Sorry. I cannot help you with that."
+FALLBACK_REPROMPT = "¿Con que te puedo ayudar?"
+EXCEPTION_MESSAGE = "Lo siento. No puedo ayudarte con eso."
 
 # =========================================================================================================================================
 # TODO: Replace this data with your own.  You can find translations of this data at http://github.com/alexa/skill-sample-python-fact/lambda/data
@@ -39,7 +41,7 @@ data = [
     'Jupiter has the shortest day of all the planets.',
     'The Milky Way galaxy will collide with the Andromeda Galaxy in about 5 billion years.',
     'The Sun contains 99.86% of the mass in the Solar System.',
-    'The Sun is an almost perfect sphere.',
+    'El Sol es una esfera casi perfecta.',
     'A total solar eclipse can happen once every 1 to 2 years. This makes them a rare event.',
     'Saturn radiates two and a half times more energy into space than it receives from the sun.',
     'The temperature inside the Sun can reach 15 million degrees Celsius.',
@@ -62,7 +64,7 @@ class GetNewFactHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return (is_request_type("LaunchRequest")(handler_input) or
-                is_intent_name("GetNewSpaceFactIntent")(handler_input))
+                is_intent_name("GetNewFactIntent")(handler_input))
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -73,6 +75,24 @@ class GetNewFactHandler(AbstractRequestHandler):
 
         handler_input.response_builder.speak(speech).set_card(
             SimpleCard(SKILL_NAME, random_fact))
+        return handler_input.response_builder.response
+
+
+class CreateCharacterIntent(AbstractRequestHandler):
+    """Handler for Skill Launch and GetNewFact Intent."""
+
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return is_intent_name("CreateCharacterIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        logger.info("In CreateCharacterIntent")
+
+        speech = CREATE_CHARACTER_ASK_NAME
+
+        handler_input.response_builder.speak(speech).set_card(
+            SimpleCard(SKILL_CHARACTER, speech))
         return handler_input.response_builder.response
 
 

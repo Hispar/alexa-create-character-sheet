@@ -91,6 +91,8 @@ class CreateCharacterIntent(AbstractRequestHandler):
 
         speech = CREATE_CHARACTER_ASK_NAME
 
+        logger.info(speech)
+
         handler_input.response_builder.speak(speech).set_card(
             SimpleCard(SKILL_CHARACTER, speech))
         return handler_input.response_builder.response

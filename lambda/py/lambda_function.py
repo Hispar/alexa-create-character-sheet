@@ -34,7 +34,7 @@ EXCEPTION_MESSAGE = "Lo siento. No puedo ayudarte con eso."
 
 data = [
     "Un año en mercurio son 88 dias.",
-    'Despite being farther from the Sun, Venus experiences higher temperatures than Mercury.',
+    "A pesar de estar más lejos del Sol, Venus soporta mayores temperaturas que Mercurio.",
     'Venus rotates counter-clockwise, possibly because of a collision in the past with an asteroid.',
     'On Mars, the Sun appears about half the size as it does on Earth.',
     'Earth is the only planet not named after a god.',

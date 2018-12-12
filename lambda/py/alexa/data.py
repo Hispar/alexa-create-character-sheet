@@ -22,3 +22,5 @@ CREATE_CHARACTER_ASK_NAME = _("¿Como quieres llamar a tu personaje?")
 CREATE_CHARACTER_ASK_CLAN = _("¿A que clan quieres pertenecer?")
 
 CREATE_CHARACTER_CONFIRMATION = _("Tu personaje será {name} de los {clan}. ¿De acuerdo?")
+
+REQUIRED_SLOTS = ["nombre", "clan"]

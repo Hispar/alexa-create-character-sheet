@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Simple fact sample app."""
 
-import random
 import logging
 
 from ask_sdk_core.skill_builder import SkillBuilder
@@ -14,39 +13,8 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 
-# =========================================================================================================================================
-# TODO: The items below this comment need your attention.
-# =========================================================================================================================================
-CREATE_CHARACTER_ASK_NAME = "¿Como quieres llamar a tu personaje?"
-SKILL_CHARACTER = "Crear personaje"
-SKILL_NAME = "Datos espaciales en español"
-GET_FACT_MESSAGE = "Aquí tienes un dato: "
-HELP_MESSAGE = "Puedes decir: Dame un dato espacial o puedes decir adios... ¿Con que te puedo ayudar?"
-HELP_REPROMPT = "¿Con que te puedo ayudar?"
-STOP_MESSAGE = "¡Adios!"
-FALLBACK_MESSAGE = "The Space Facts skill can't help you with that.  It can help you discover facts about space if you say tell me a space fact. What can I help you with?"
-FALLBACK_REPROMPT = "¿Con que te puedo ayudar?"
-EXCEPTION_MESSAGE = "Lo siento. No puedo ayudarte con eso."
-
-# =========================================================================================================================================
-# TODO: Replace this data with your own.  You can find translations of this data at http://github.com/alexa/skill-sample-python-fact/lambda/data
-# =========================================================================================================================================
-
-data = [
-    "Un año en mercurio son 88 dias.",
-    "A pesar de estar más lejos del Sol, Venus soporta mayores temperaturas que Mercurio.",
-    'Venus rotates counter-clockwise, possibly because of a collision in the past with an asteroid.',
-    'On Mars, the Sun appears about half the size as it does on Earth.',
-    'Earth is the only planet not named after a god.',
-    'Jupiter has the shortest day of all the planets.',
-    'The Milky Way galaxy will collide with the Andromeda Galaxy in about 5 billion years.',
-    'The Sun contains 99.86% of the mass in the Solar System.',
-    'El Sol es una esfera casi perfecta.',
-    'A total solar eclipse can happen once every 1 to 2 years. This makes them a rare event.',
-    'Saturn radiates two and a half times more energy into space than it receives from the sun.',
-    'The temperature inside the Sun can reach 15 million degrees Celsius.',
-    'The Moon is moving approximately 3.8 cm away from our planet every year.',
-]
+# noinspection PyUnresolvedReferences
+from alexa import data
 
 # =========================================================================================================================================
 # Editing anything below this line might break your skill.
@@ -69,12 +37,9 @@ class RequestHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.info("In RequestHandler")
 
-        random_fact = random.choice(data)
-        speech = GET_FACT_MESSAGE + random_fact
-
-        handler_input.response_builder.speak(speech).set_card(
-            SimpleCard(SKILL_NAME, random_fact))
-        handler_input.response_builder.ask(FALLBACK_REPROMPT)
+        handler_input.response_builder.speak(data.WELCOME).set_card(
+            SimpleCard(data.SKILL_NAME, data.WELCOME))
+        handler_input.response_builder.ask(data.GENERIC_REPROMPT)
         return handler_input.response_builder.response
 
 
@@ -91,17 +56,31 @@ class CreateCharacterIntent(AbstractRequestHandler):
 
         attribute_manager = handler_input.attributes_manager
         session_attr = attribute_manager.session_attributes
+        # request_attr = attribute_manager.request_attributes
+        # persistent_attr = attribute_manager.persistent_attributes
 
-        # restaurant = random.choice(util.get_restaurants_by_meal(
-        #     data.CITY_DATA, "coffee"))
-        # session_attr["restaurant"] = restaurant["name"]
-        # speech = ("For a great coffee shop, I recommend {}. Would you "
-        #           "like to hear more?").format(restaurant["name"])
+        slots = handler_input.request_envelope.request.intent.slots
+        logger.info(slots)
+        logger.info(slots['nombre'])
 
-        speech = CREATE_CHARACTER_ASK_NAME
+        speech = None
+        if "name" not in session_attr:
+            if slots['nombre'].value is not None:
+                session_attr["name"] = slots['nombre'].value
+            else:
+                speech = data.CREATE_CHARACTER_ASK_NAME
+
+        if "clan" not in session_attr:
+            if slots['clan'].value is not None:
+                session_attr["clan"] = slots['clan'].value
+            elif speech is None:
+                speech = data.CREATE_CHARACTER_ASK_CLAN
+
+        if speech is None:
+            speech = data.CREATE_CHARACTER_CONFIRMATION.format(name=session_attr['name'], clan=session_attr['clan'])
 
         handler_input.response_builder.speak(speech).ask(
-            HELP_REPROMPT).set_card(SimpleCard(SKILL_CHARACTER, speech))
+            data.GENERIC_REPROMPT).set_card(SimpleCard(data.CREATE_CHARACTER, speech))
 
         return handler_input.response_builder.response
 
@@ -117,8 +96,8 @@ class HelpIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.info("In HelpIntentHandler")
 
-        handler_input.response_builder.speak(HELP_MESSAGE).ask(
-            HELP_REPROMPT).set_card(SimpleCard(SKILL_NAME, HELP_MESSAGE))
+        handler_input.response_builder.speak(data.HELP_MESSAGE).ask(
+            data.GENERIC_REPROMPT).set_card(SimpleCard(data.SKILL_NAME, data.HELP_MESSAGE))
         return handler_input.response_builder.response
 
 
@@ -134,7 +113,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.info("In CancelOrStopIntentHandler")
 
-        handler_input.response_builder.speak(STOP_MESSAGE)
+        handler_input.response_builder.speak(data.STOP_MESSAGE)
         return handler_input.response_builder.response
 
 
@@ -154,8 +133,8 @@ class FallbackIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.info("In FallbackIntentHandler")
 
-        handler_input.response_builder.speak(FALLBACK_MESSAGE).ask(
-            FALLBACK_REPROMPT)
+        handler_input.response_builder.speak(data.FALLBACK_MESSAGE).ask(
+            data.GENERIC_REPROMPT)
         return handler_input.response_builder.response
 
 
@@ -190,8 +169,8 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
         logger.info("In CatchAllExceptionHandler")
         logger.error(exception, exc_info=True)
 
-        handler_input.response_builder.speak(EXCEPTION_MESSAGE).ask(
-            HELP_REPROMPT)
+        handler_input.response_builder.speak(data.EXCEPTION_MESSAGE).ask(
+            data.GENERIC_REPROMPT)
 
         return handler_input.response_builder.response
 

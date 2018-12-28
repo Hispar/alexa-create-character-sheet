@@ -10,13 +10,13 @@ from ask_sdk_core.dispatch_components import (
 from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model.dialog import ElicitSlotDirective, DelegateDirective
-from ask_sdk_model.slu.entityresolution import StatusCode
+from ask_sdk_model import (Intent, IntentConfirmationStatus, Slot, SlotConfirmationStatus, DialogState)
 
 from ask_sdk_model.ui import SimpleCard
-from ask_sdk_model import Response, DialogState, SlotConfirmationStatus
+from ask_sdk_model import Response
 
-# noinspection PyUnresolvedReferences
 from alexa import data
+from custom.create_pdf import convertHtmlToPdf
 
 # =========================================================================================================================================
 # Editing anything below this line might break your skill.
@@ -38,10 +38,8 @@ class RequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In RequestHandler")
-
-        handler_input.response_builder.speak(data.WELCOME).set_card(
-            SimpleCard(data.SKILL_NAME, data.WELCOME))
-        handler_input.response_builder.ask(data.CREATE_CHARACTER_ASK_NAME)
+        handler_input.response_builder.speak(data.WELCOME).set_should_end_session(
+            False)
         return handler_input.response_builder.response
 
 
@@ -56,79 +54,18 @@ class CreateCharacterIntent(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.info("In CreateCharacterIntent")
 
-        attribute_manager = handler_input.attributes_manager
-        session_attr = attribute_manager.session_attributes
-        # request_attr = attribute_manager.request_attributes
-        # persistent_attr = attribute_manager.persistent_attributes
-
-        slots = handler_input.request_envelope.request.intent.slots
-
-        speech = None
-        if "name" not in session_attr:
-            if slots['nombre'].value is not None:
-                session_attr["name"] = slots['nombre'].value
-            else:
-                speech = data.CREATE_CHARACTER_ASK_NAME
-
-        if "clan" not in session_attr:
-            if slots['clan'].value is not None:
-                session_attr["clan"] = slots['clan'].value
-            elif speech is None:
-                speech = data.CREATE_CHARACTER_ASK_CLAN
-
-        if speech is None:
-            speech = data.CREATE_CHARACTER_CONFIRMATION.format(name=session_attr['name'], clan=session_attr['clan'])
-
-        handler_input.response_builder.speak(speech).ask(
-            data.GENERIC_REPROMPT).set_card(SimpleCard(data.CREATE_CHARACTER, speech))
+        dialog_state = handler_input.request_envelope.request.dialog_state
+        logger.info(dialog_state)
+        if handler_input.request_envelope.request.dialog_state != DialogState.COMPLETED:
+            directive = DelegateDirective()
+            handler_input.response_builder.add_directive(directive)
+        else:
+            slots = handler_input.request_envelope.request.intent.slots
+            speech = data.CREATE_CHARACTER_CONFIRMATION.format(name=slots['nombre'].value, clan=slots['clan'].value)
+            handler_input.response_builder.speak(speech)
+            convertHtmlToPdf(sourceHtml, outputFilename)
 
         return handler_input.response_builder.response
-
-
-class InProgressIntent(AbstractRequestHandler):
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return (is_intent_name("CreateCharacterIntent")(handler_input)
-                and handler_input.request_envelope.request.dialog_state != DialogState.COMPLETED)
-
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
-        logger.info("In InProgressIntent")
-        current_intent = handler_input.request_envelope.request.intent
-        prompt = ""
-
-        for slot_name, current_slot in six.iteritems(
-                current_intent.slots):
-            if slot_name not in ["article", "at_the", "I_Want"]:
-                if (current_slot.confirmation_status != SlotConfirmationStatus.CONFIRMED
-                        and current_slot.resolutions
-                        and current_slot.resolutions.resolutions_per_authority[0]):
-                    if current_slot.resolutions.resolutions_per_authority[0].status.code == StatusCode.ER_SUCCESS_MATCH:
-                        if len(current_slot.resolutions.resolutions_per_authority[0].values) > 1:
-                            prompt = "Which would you like "
-
-                            values = " or ".join(
-                                [e.value.name for e in current_slot.resolutions.resolutions_per_authority[0].values])
-                            prompt += values + " ?"
-                            return handler_input.response_builder.speak(
-                                prompt).ask(prompt).add_directive(
-                                ElicitSlotDirective(slot_to_elicit=current_slot.name)
-                            ).response
-                    elif current_slot.resolutions.resolutions_per_authority[
-                        0].status.code == StatusCode.ER_SUCCESS_NO_MATCH:
-                        if current_slot.name in data.REQUIRED_SLOTS:
-                            prompt = "What {} are you looking for?".format(current_slot.name)
-
-                            return handler_input.response_builder.speak(
-                                prompt).ask(prompt).add_directive(
-                                ElicitSlotDirective(
-                                    slot_to_elicit=current_slot.name
-                                )).response
-
-        return handler_input.response_builder.add_directive(
-            DelegateDirective(
-                updated_intent=current_intent
-            )).response
 
 
 class HelpIntentHandler(AbstractRequestHandler):

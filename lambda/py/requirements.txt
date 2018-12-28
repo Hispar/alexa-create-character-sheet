@@ -1,1 +1,5 @@
 ask-sdk-core
+# mailing
+boto3
+# PDF generation
+xhtml2pdf==0.2.3

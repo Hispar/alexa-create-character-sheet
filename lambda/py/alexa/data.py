@@ -24,3 +24,26 @@ CREATE_CHARACTER_ASK_CLAN = _("¿A que clan quieres pertenecer?")
 CREATE_CHARACTER_CONFIRMATION = _("Creando a {name} de los {clan}.")
 
 REQUIRED_SLOTS = ["nombre", "clan"]
+
+# convertHtmlToPdf(sourceHtml, outputFilename)
+# The subject line for the email.
+SUBJECT = "Amazon SES Test (SDK for Python)"
+
+# The email body for recipients with non-HTML email clients.
+BODY_TEXT = ("Amazon SES Test (Python)\r\n"
+             "This email was sent with Amazon SES using the "
+             "AWS SDK for Python (Boto)."
+             )
+
+# The HTML body of the email.
+BODY_HTML = """<html>
+<head></head>
+<body>
+  <h1>Amazon SES Test (SDK for Python)</h1>
+  <p>This email was sent with
+    <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
+    <a href='https://aws.amazon.com/sdk-for-python/'>
+      AWS SDK for Python (Boto)</a>.</p>
+</body>
+</html>
+"""

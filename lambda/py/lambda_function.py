@@ -16,7 +16,8 @@ from ask_sdk_model.ui import SimpleCard
 from ask_sdk_model import Response
 
 from alexa import data
-from custom.create_pdf import convertHtmlToPdf
+# from custom.create_pdf import convertHtmlToPdf
+from custom.mailer import Mailer
 
 # =========================================================================================================================================
 # Editing anything below this line might break your skill.
@@ -63,7 +64,15 @@ class CreateCharacterIntent(AbstractRequestHandler):
             slots = handler_input.request_envelope.request.intent.slots
             speech = data.CREATE_CHARACTER_CONFIRMATION.format(name=slots['nombre'].value, clan=slots['clan'].value)
             handler_input.response_builder.speak(speech)
-            convertHtmlToPdf(sourceHtml, outputFilename)
+            # Replace sender@example.com with your "From" address.
+            # This address must be verified with Amazon SES.
+            sender = "Sender Name <sender@example.com>"
+
+            # Replace recipient@example.com with a "To" address. If your account
+            # is still in the sandbox, this address must be verified.
+            recipient = "recipient@example.com"
+            Mailer.send(subject=data.SUBJECT, sender=sender, recipient=recipient, body=data.BODY_HTML,
+                        body_text=data.BODY_TEXT)
 
         return handler_input.response_builder.response
 

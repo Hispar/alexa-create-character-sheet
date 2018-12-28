@@ -66,13 +66,14 @@ class CreateCharacterIntent(AbstractRequestHandler):
             handler_input.response_builder.speak(speech)
             # Replace sender@example.com with your "From" address.
             # This address must be verified with Amazon SES.
-            sender = "Sender Name <sender@example.com>"
+            sender = "Sender Name <dummy@mail.com>"
 
             # Replace recipient@example.com with a "To" address. If your account
             # is still in the sandbox, this address must be verified.
-            recipient = "recipient@example.com"
-            Mailer.send(subject=data.SUBJECT, sender=sender, recipient=recipient, body=data.BODY_HTML,
-                        body_text=data.BODY_TEXT)
+            recipient = "dummy@mail.com"
+            mail = Mailer()
+            mail.send(subject=data.SUBJECT, sender=sender, recipient=recipient, body=data.BODY_HTML,
+                      body_text=data.BODY_TEXT)
 
         return handler_input.response_builder.response
 

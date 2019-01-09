@@ -2,6 +2,7 @@ ask-sdk-core
 # mailing
 boto3
 # PDF
+pycparser
 WeasyPrint
 
 # templating

@@ -10,6 +10,10 @@
             margin: 0;
         }
 
+        .container {
+            font-size: 0.7em;
+        }
+
         .card-header {
             text-align: center;
         }
@@ -111,23 +115,23 @@
                 </tr>
                 <tr>
                     {% for attribute in attributes_headers %}
-                    <th>{{ attribute }}</th>
+                        <th>{{ attribute }}</th>
                     {% endfor %}
                 </tr>
                 </thead>
                 <tbody>
                 {% for number in range(3) %}
-                <tr>
-                    <td>{{ attributes[attributes_headers[0]][number] }}{{ dots.dots(5,
+                    <tr>
+                        <td>{{ attributes[attributes_headers[0]][number] }}{{ dots.dots(5,
                         attributes_archetype[attributes[attributes_headers[0]][number]]) }}
-                    </td>
-                    <td>{{ attributes[attributes_headers[1]][number] }}{{ dots.dots(5,
+                        </td>
+                        <td>{{ attributes[attributes_headers[1]][number] }}{{ dots.dots(5,
                         attributes_archetype[attributes[attributes_headers[1]][number]]) }}
-                    </td>
-                    <td>{{ attributes[attributes_headers[2]][number] }}{{ dots.dots(5,
+                        </td>
+                        <td>{{ attributes[attributes_headers[2]][number] }}{{ dots.dots(5,
                         attributes_archetype[attributes[attributes_headers[2]][number]]) }}
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -138,35 +142,35 @@
                 </tr>
                 <tr>
                     {% for skill in skill_headers %}
-                    <th>{{ skill }}</th>
+                        <th>{{ skill }}</th>
                     {% endfor %}
                 </tr>
                 </thead>
                 <tbody>
                 {% for number in range(10) %}
-                <tr>
-                    <td>{{ skills[skill_headers[0]][number] }}
-                        {% if skills_archetype[skills[skill_headers[0]][number]] is defined %}
-                        {{ dots.dots(5, skills_archetype[skills[skill_headers[0]][number]]) }}
-                        {% else %}
-                        {{ dots.dots(5) }}
-                        {% endif %}
-                    </td>
-                    <td>{{ skills[skill_headers[1]][number] }}
-                        {% if skills_archetype[skills[skill_headers[1]][number]] is defined %}
-                        {{ dots.dots(5, skills_archetype[skills[skill_headers[1]][number]]) }}
-                        {% else %}
-                        {{ dots.dots(5) }}
-                        {% endif %}
-                    </td>
-                    <td>{{ skills[skill_headers[2]][number] }}
-                        {% if skills_archetype[skills[skill_headers[2]][number]] is defined %}
-                        {{ dots.dots(5, skills_archetype[skills[skill_headers[2]][number]]) }}
-                        {% else %}
-                        {{ dots.dots(5) }}
-                        {% endif %}
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ skills[skill_headers[0]][number] }}
+                            {% if skills_archetype[skills[skill_headers[0]][number]] is defined %}
+                                {{ dots.dots(5, skills_archetype[skills[skill_headers[0]][number]]) }}
+                            {% else %}
+                                {{ dots.dots(5) }}
+                            {% endif %}
+                        </td>
+                        <td>{{ skills[skill_headers[1]][number] }}
+                            {% if skills_archetype[skills[skill_headers[1]][number]] is defined %}
+                                {{ dots.dots(5, skills_archetype[skills[skill_headers[1]][number]]) }}
+                            {% else %}
+                                {{ dots.dots(5) }}
+                            {% endif %}
+                        </td>
+                        <td>{{ skills[skill_headers[2]][number] }}
+                            {% if skills_archetype[skills[skill_headers[2]][number]] is defined %}
+                                {{ dots.dots(5, skills_archetype[skills[skill_headers[2]][number]]) }}
+                            {% else %}
+                                {{ dots.dots(5) }}
+                            {% endif %}
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -177,26 +181,26 @@
                 </tr>
                 <tr>
                     {% for advantage in advantages_headers %}
-                    <th>{{ advantage }}</th>
+                        <th>{{ advantage }}</th>
                     {% endfor %}
                 </tr>
                 </thead>
                 <tbody>
                 {% for number in range(6) %}
-                <tr>
-                    <td>{% if disciplines[number] %}
-                        {{ disciplines[number] }}
+                    <tr>
+                        <td>{% if disciplines[number] %}
+                            {{ disciplines[number] }}
                         {% else %}
-                        ________________________
+                            ________________________
                         {% endif %}
-                        {{ dots.dots(5) }}
-                    </td>
-                    <td>________________________{{ dots.dots(5) }}</td>
-                    <td>{% if virtues[number] %}
-                        {{ virtues[number] }}{{ dots.dots(5, 1) }}
+                            {{ dots.dots(5) }}
+                        </td>
+                        <td>________________________{{ dots.dots(5) }}</td>
+                        <td>{% if virtues[number] %}
+                            {{ virtues[number] }}{{ dots.dots(5, 1) }}
                         {% endif %}
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

@@ -2,7 +2,7 @@ ask-sdk-core
 # mailing
 boto3
 # PDF
-cairo >= 1.15.4
+cairo
 cairocffi
 pycparser
 WeasyPrint

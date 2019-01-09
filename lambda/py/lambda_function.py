@@ -97,7 +97,7 @@ class CreateCharacterIntent(AbstractRequestHandler):
             template = TemplateManager(name=name, clan=clan)
             subject = template.get_subject()
 
-            document = io.StringIO()
+            document = io.BytesIO()
             template.get_document(document)
 
             mail = Mailer()

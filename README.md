@@ -44,3 +44,9 @@ Additional Resources
 -  [Official Alexa Skills Kit Python SDK Docs](https://alexa-skills-kit-python-sdk.readthedocs.io/en/latest/)
 -  [Official Alexa Skills Kit Docs](https://developer.amazon.com/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html)
 
+
+# Other Documentation
+
+- [PDF documentation](https://media.readthedocs.org/pdf/alexa-skills-kit-python-sdk/latest/alexa-skills-kit-python-sdk.pdf)
+- [Crear un personaje](http://tocajugar.blogspot.com/2016/01/vampiro-la-mascarada-creando-un.html)
+- [Codeacademy-Alexa](https://www.codecademy.com/learn/alexa-conversational-design)

@@ -3,7 +3,8 @@
 
 import logging
 
-from ask_sdk_core.skill_builder import SkillBuilder
+from ask_sdk_core.api_client import DefaultApiClient
+from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_core.dispatch_components import (
     AbstractRequestHandler, AbstractExceptionHandler,
     AbstractRequestInterceptor, AbstractResponseInterceptor)
@@ -11,19 +12,22 @@ from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model.dialog import ElicitSlotDirective, DelegateDirective
 from ask_sdk_model import (Intent, IntentConfirmationStatus, Slot, SlotConfirmationStatus, DialogState)
+from ask_sdk_model.services import ServiceException
 
-from ask_sdk_model.ui import SimpleCard
+from ask_sdk_model.ui import SimpleCard, AskForPermissionsConsentCard
 from ask_sdk_model import Response
 
 from alexa import data
 # from custom.create_pdf import convertHtmlToPdf
+from custom.create_pdf import PdfRenderer
 from custom.mailer import Mailer
+from custom.template_manager import TemplateManager
 
 # =========================================================================================================================================
 # Editing anything below this line might break your skill.
 # =========================================================================================================================================
 
-sb = SkillBuilder()
+sb = CustomSkillBuilder(api_client=DefaultApiClient())
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
@@ -55,27 +59,59 @@ class CreateCharacterIntent(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         logger.info("In CreateCharacterIntent")
 
-        dialog_state = handler_input.request_envelope.request.dialog_state
-        logger.info(dialog_state)
-        if handler_input.request_envelope.request.dialog_state != DialogState.COMPLETED:
+        req_envelope = handler_input.request_envelope
+        response_builder = handler_input.response_builder
+        service_client_fact = handler_input.service_client_factory
+
+        if not (req_envelope.context.system.user.permissions and
+                req_envelope.context.system.user.permissions.consent_token):
+            response_builder.speak(data.NOTIFY_MISSING_PERMISSIONS)
+            response_builder.set_card(
+                AskForPermissionsConsentCard(permissions=data.PERMISSIONS))
+            return response_builder.response
+
+        try:
+            user_service = service_client_fact.get_ups_service()
+            recipient = user_service.get_profile_email()
+        except ServiceException:
+            response_builder.speak(data.FALLBACK_MESSAGE)
+            return response_builder.response
+        except Exception as e:
+            raise e
+
+        dialog_state = req_envelope.request.dialog_state
+        if dialog_state != DialogState.COMPLETED:
             directive = DelegateDirective()
-            handler_input.response_builder.add_directive(directive)
+            response_builder.add_directive(directive)
         else:
-            slots = handler_input.request_envelope.request.intent.slots
-            speech = data.CREATE_CHARACTER_CONFIRMATION.format(name=slots['nombre'].value, clan=slots['clan'].value)
-            handler_input.response_builder.speak(speech)
+            slots = req_envelope.request.intent.slots
+            name = slots['nombre'].value
+            clan = slots['clan'].value
+            speech = data.CREATE_CHARACTER_CONFIRMATION.format(name=name, clan=clan)
+            response_builder.speak(speech)
             # Replace sender@example.com with your "From" address.
             # This address must be verified with Amazon SES.
-            sender = "Sender Name <dummy@mail.com>"
+            sender = "Generador de personajes <mail@mail.com>"
 
             # Replace recipient@example.com with a "To" address. If your account
             # is still in the sandbox, this address must be verified.
-            recipient = "dummy@mail.com"
-            mail = Mailer()
-            mail.send(subject=data.SUBJECT, sender=sender, recipient=recipient, body=data.BODY_HTML,
-                      body_text=data.BODY_TEXT)
+            template = TemplateManager(name=name, clan=clan)
+            subject = template.get_subject()
+            # body_text = template.get_body_text()
 
-        return handler_input.response_builder.response
+            pdf = PdfRenderer()
+            html = template.get_body()
+            logger.info(html)
+            document = pdf.generate(html)
+            logger.info("Documento creado:")
+            logger.info(document)
+
+            mail = Mailer()
+            mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=html)
+            mail.create_attachment(document, 'personaje.pdf')
+            mail.send()
+
+        return response_builder.response
 
 
 class HelpIntentHandler(AbstractRequestHandler):

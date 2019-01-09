@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+# Python imports
+
+# 3rd Party imports
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+
+# App imports
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -9,41 +19,37 @@ class Mailer:
         self.aws_region = 'eu-west-1'
         self.charset = 'UTF-8'
 
-    def send(self, subject, sender, recipient, body, body_text):
+        self.message = MIMEMultipart()
+
+    def create_attachment(self, attachment, filename):
+        part = MIMEApplication(attachment)
+        part.add_header('Content-Disposition', 'attachment', filename=filename)
+        self.message.attach(part)
+
+    def create_mail(self, subject, sender, recipient, body,):
+
+        self.message['Subject'] = subject
+        self.message['From'] = sender
+        self.message['To'] = recipient
+
+        # message body
+        part = MIMEText(body, 'html')
+        self.message.attach(part)
+
+    def send(self):
         # Create a new SES resource and specify a region.
         client = boto3.client('ses', region_name=self.aws_region)
 
         # Try to send the email.
         try:
-            # Provide the contents of the email.
-            response = client.send_email(
-                Destination={
-                    'ToAddresses': [
-                        recipient,
-                    ],
-                },
-                Message={
-                    'Body': {
-                        'Html': {
-                            'Charset': self.charset,
-                            'Data': body,
-                        },
-                        'Text': {
-                            'Charset': self.charset,
-                            'Data': body_text,
-                        },
-                    },
-                    'Subject': {
-                        'Charset': self.charset,
-                        'Data': subject,
-                    },
-                },
-                Source=sender,
-                # If you are not using a configuration set, comment or delete the
-                # following line
-                # ConfigurationSetName=self.configuration,
+            response = client.send_raw_email(
+                Source=self.message['From'],
+                Destinations=[self.message['To']],
+                RawMessage={
+                    'Data': self.message.as_string()
+                }
             )
-        # Display an error if something goes wrong.
+            # Display an error if something goes wrong.
         except ClientError as e:
             print(e.response['Error']['Message'])
         # else:

@@ -1,0 +1,11 @@
+{% macro dots(number, filled=0) -%}
+<div class="dots">
+    {% for number in range(number) %}
+        {% if filled > number %}
+            <span class="dot fill"></span>
+        {% else %}
+            <span class="dot"></span>
+        {% endif %}
+    {% endfor %}
+</div>
+{%- endmacro %}

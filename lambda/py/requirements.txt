@@ -2,7 +2,6 @@ ask-sdk-core
 # mailing
 boto3
 # PDF
-pycairo
 cairocffi
 pycparser
 WeasyPrint

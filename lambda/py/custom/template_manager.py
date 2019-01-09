@@ -27,7 +27,30 @@ class TemplateManager(object):
     def get_subject(self):
         return data.SUBJECT.format(name=self.name, clan=self.clan)
 
-    def get_body(self):
+    def get_document(self, document=None):
+        template = env.get_template('template2.html')
+
+        archetype = Archetype(self.clan)
+
+        stream = template.stream(
+            name=self.name,
+            clan=self.clan,
+            skill_headers=template_data.skill_headers,
+            skills=template_data.skills,
+            skills_archetype=archetype.get_skills(),
+            attributes_headers=template_data.attributes_headers,
+            attributes=template_data.attributes,
+            attributes_archetype=archetype.get_attributes(),
+            advantages_headers=template_data.advantages_headers,
+            virtues=template_data.virtues,
+            disciplines=archetype.get_disciplines()
+        )
+
+        if document:
+            return stream.dump(document)
+        return stream.dump()
+
+    def get_html(self):
         template = env.get_template('template2.html')
 
         archetype = Archetype(self.clan)

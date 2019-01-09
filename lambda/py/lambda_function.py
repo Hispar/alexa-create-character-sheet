@@ -18,8 +18,7 @@ from ask_sdk_model.ui import SimpleCard, AskForPermissionsConsentCard
 from ask_sdk_model import Response
 
 from alexa import data
-# from custom.create_pdf import convertHtmlToPdf
-from custom.create_pdf import PdfRenderer
+from alexa import constants
 from custom.mailer import Mailer
 from custom.template_manager import TemplateManager
 
@@ -91,24 +90,16 @@ class CreateCharacterIntent(AbstractRequestHandler):
             response_builder.speak(speech)
             # Replace sender@example.com with your "From" address.
             # This address must be verified with Amazon SES.
-            sender = "Generador de personajes <mail@mail.com>"
+            sender = constants.sender
 
             # Replace recipient@example.com with a "To" address. If your account
             # is still in the sandbox, this address must be verified.
             template = TemplateManager(name=name, clan=clan)
             subject = template.get_subject()
-            # body_text = template.get_body_text()
-
-            pdf = PdfRenderer()
-            html = template.get_body()
-            logger.info(html)
-            document = pdf.generate(html)
-            logger.info("Documento creado:")
-            logger.info(document)
 
             mail = Mailer()
-            mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=html)
-            mail.create_attachment(document, 'personaje.pdf')
+            mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=template.get_html())
+            mail.create_attachment(template.get_document(), 'personaje.html')
             mail.send()
 
         return response_builder.response

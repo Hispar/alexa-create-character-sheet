@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Simple fact sample app."""
-
+import io
 import logging
 
 from ask_sdk_core.api_client import DefaultApiClient
@@ -97,9 +97,12 @@ class CreateCharacterIntent(AbstractRequestHandler):
             template = TemplateManager(name=name, clan=clan)
             subject = template.get_subject()
 
+            document = io.StringIO()
+            template.get_document(document)
+
             mail = Mailer()
             mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=template.get_html())
-            mail.create_attachment(template.get_document(), 'personaje.html')
+            mail.create_attachment(document, 'personaje.html')
             mail.send()
 
         return response_builder.response

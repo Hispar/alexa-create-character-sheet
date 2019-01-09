@@ -97,7 +97,7 @@ class CreateCharacterIntent(AbstractRequestHandler):
             template = TemplateManager(name=name, clan=clan)
             subject = template.get_subject()
 
-            document = io.BytesIO()
+            document = io.StringIO()
             template.get_document(document)
 
             bytesObj = io.BytesIO()

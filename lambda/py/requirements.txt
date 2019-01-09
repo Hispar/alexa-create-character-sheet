@@ -2,9 +2,7 @@ ask-sdk-core
 # mailing
 boto3
 # PDF
-cairocffi
-pycparser
-WeasyPrint
+pdfrw
 
 # templating
 Jinja2

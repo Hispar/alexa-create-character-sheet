@@ -2,6 +2,7 @@ ask-sdk-core
 # mailing
 boto3
 # PDF
+cffi==1.7.0
 cairocffi
 pycparser
 WeasyPrint

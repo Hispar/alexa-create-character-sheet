@@ -50,3 +50,5 @@ Additional Resources
 - [PDF documentation](https://media.readthedocs.org/pdf/alexa-skills-kit-python-sdk/latest/alexa-skills-kit-python-sdk.pdf)
 - [Crear un personaje](http://tocajugar.blogspot.com/2016/01/vampiro-la-mascarada-creando-un.html)
 - [Codeacademy-Alexa](https://www.codecademy.com/learn/alexa-conversational-design)
+
+https://www.api2pdf.com/faq/

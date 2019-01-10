@@ -21,6 +21,7 @@ from alexa import data
 from alexa import constants
 from custom.mailer import Mailer
 from custom.template_manager import TemplateManager
+from custom.create_pdf import PdfRenderer
 
 # =========================================================================================================================================
 # Editing anything below this line might break your skill.
@@ -98,10 +99,12 @@ class CreateCharacterIntent(AbstractRequestHandler):
             subject = template.get_subject()
 
             document = template.get_html()
+            pdf = PdfRenderer()
+            pdf_file = pdf.generate(document)
 
             mail = Mailer()
             mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=document)
-            mail.create_attachment(document.encode('utf8'), 'personaje.html')
+            mail.create_attachment(pdf_file, 'personaje.pdf')
             mail.send()
 
         return response_builder.response

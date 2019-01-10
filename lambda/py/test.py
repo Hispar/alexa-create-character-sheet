@@ -8,9 +8,9 @@ from custom.mailer import Mailer
 
 template = TemplateManager(name="Pepe", clan="brujah")
 
-print(template.get_html())
-fileobj = io.StringIO()
-x = template.get_document(fileobj)
+# print(template.get_html())
+# fileobj = io.StringIO()
+# x = template.get_document(fileobj)
 
 # bytesObj = io.BytesIO()
 # bytesObj.write(str(fileobj).encode('utf-8'))
@@ -19,7 +19,8 @@ x = template.get_document(fileobj)
 
 mail = Mailer()
 mail.create_mail(subject='a', sender='s', recipient='s', body=template.get_html())
-mail.create_attachment(str(fileobj).encode('utf-8'), 'personaje.html')
+mail.create_attachment(template.get_html(), 'personaje.html')
+# mail.send()
 # pdf = pdfkit.from_url('http://google.com', False)
 # pdfkit.from_string(template.get_body(), 'out.pdf', configuration=config)
 

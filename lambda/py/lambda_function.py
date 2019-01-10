@@ -97,12 +97,11 @@ class CreateCharacterIntent(AbstractRequestHandler):
             template = TemplateManager(name=name, clan=clan)
             subject = template.get_subject()
 
-            document = io.StringIO()
-            template.get_document(document)
+            document = template.get_html()
 
             mail = Mailer()
-            mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=template.get_html())
-            mail.create_attachment(str(document).encode('utf-8'), 'personaje.html')
+            mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=document)
+            mail.create_attachment(document, 'personaje.html')
             mail.send()
 
         return response_builder.response

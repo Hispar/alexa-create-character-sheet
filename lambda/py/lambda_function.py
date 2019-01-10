@@ -100,12 +100,9 @@ class CreateCharacterIntent(AbstractRequestHandler):
             document = io.StringIO()
             template.get_document(document)
 
-            bytesObj = io.BytesIO()
-            bytesObj.write(str(document).encode('utf-8'))
-
             mail = Mailer()
             mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=template.get_html())
-            mail.create_attachment(bytesObj, 'personaje.html')
+            mail.create_attachment(str(document).encode('utf-8'), 'personaje.html')
             mail.send()
 
         return response_builder.response

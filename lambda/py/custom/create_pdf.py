@@ -10,7 +10,7 @@ import pdfkit
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-configuration = pdfkit.configuration(wkhtmltopdf=binaries/wkhtmltopdf)
+configuration = pdfkit.configuration(wkhtmltopdf='binaries/wkhtmltopdf')
 
 
 class PdfRenderer(object):

@@ -101,7 +101,7 @@ class CreateCharacterIntent(AbstractRequestHandler):
 
             mail = Mailer()
             mail.create_mail(subject=subject, sender=sender, recipient=recipient, body=document)
-            mail.create_attachment(document, 'personaje.html')
+            mail.create_attachment(document.encode('utf8'), 'personaje.html')
             mail.send()
 
         return response_builder.response

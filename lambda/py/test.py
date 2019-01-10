@@ -16,10 +16,14 @@ template = TemplateManager(name="Pepe", clan="brujah")
 # bytesObj.write(str(fileobj).encode('utf-8'))
 # Convert to a "unicode" object
 # text_obj = byte_str.decode('UTF-8')
-
+document = template.get_html()
+# print(document.decode('utf8'))
+print(document.encode('utf8'))
 mail = Mailer()
-mail.create_mail(subject='a', sender='s', recipient='s', body=template.get_html())
-mail.create_attachment(template.get_html(), 'personaje.html')
+mail.create_mail(subject='a', sender='s', recipient='s', body=document)
+mail.create_attachment(document, 'personaje.html')
+
+print(document)
 # mail.send()
 # pdf = pdfkit.from_url('http://google.com', False)
 # pdfkit.from_string(template.get_body(), 'out.pdf', configuration=config)

@@ -7,12 +7,11 @@ template = TemplateManager(name="Pepe", clan="brujah")
 
 document = template.get_html()
 
-print(document.encode('utf8'))
 mail = Mailer()
 mail.create_mail(subject='a', sender='s', recipient='s', body=document)
 mail.create_attachment(document, 'personaje.html')
 
-print(document)
+# print(document)
 
 # pdf = pdfkit.from_url('http://google.com', False)
 # config = pdfkit.configuration(wkhtmltopdf="binaries/wkhtmltopdf")

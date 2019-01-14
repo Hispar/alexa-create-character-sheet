@@ -1,10 +1,10 @@
-{% macro dots(number, filled=0) -%}
-<div class="dots">
+{% macro dots(number, filled=0, superclass="dots", class="dot") -%}
+<div class="{{ superclass }}">
     {% for number in range(number) %}
         {% if filled > number %}
-            <span class="dot fill"></span>
+            <span class="{{ class }} fill"></span>
         {% else %}
-            <span class="dot"></span>
+            <span class="{{ class }}"></span>
         {% endif %}
     {% endfor %}
 </div>

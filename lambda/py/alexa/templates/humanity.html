@@ -1,0 +1,73 @@
+{% import 'dots.html' as dots %}
+
+<table class="table">
+    <thead class="centered">
+    <tr>
+        <th colspan="3"></th>
+    </tr>
+    <tr>
+        <th>Méritos y Defectos</th>
+        <th>Humanidad/Senda</th>
+        <th>Salud</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for index in range(12) %}
+        <tr>
+            <td>
+                {% if index == 0 %}
+                    <small>Merito</small>
+                    <small class="dots">Coste</small>
+                {% elif index == 7 %}
+                    <small>Defecto</small>
+                    <small class="dots">Coste</small>
+                {% elif index == 6 %}
+                {% else %}
+                    <small>____________</small>
+                    <small class="dots">____</small>
+                {% endif %}
+            </td>
+            {% if index == 0 %}
+                <td>
+                    <div class="centered">_____________________</div>
+                </td>
+            {% elif index in [1, 5] %}
+                <td>{{ dots.dots(10, 0, "centered") }} </td>
+            {% elif index in [6, 9, 10] %}
+                <td>{{ dots.dots(10, 0, "centered", "square") }} </td>
+            {% elif index == 2 %}
+                <td>
+                    <div class="centered">Porte:________________()</div>
+                </td>
+            {% elif index == 4 %}
+                <th>
+                    <div class="centered">Fuerza de Voluntad</div>
+                </th>
+            {% elif index == 8 %}
+                <th>
+                    <div class="centered">Reserva de Sangre</div>
+                </th>
+            {% elif index == 11 %}
+                <td>
+                    <div class="centered">Sangre por turno:______</div>
+                </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+
+            {% if index < 7 %}
+            <td>{{ health[index] }} <input class="dots" type="checkbox"/></td>
+            {% elif index == 8 %}
+                <th>
+                    <div class="centered">Debilidad</div>
+                </th>
+            {% elif index == 10 %}
+                <th>
+                    <div class="centered">Experiencia</div>
+                </th>
+            {% else %}
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

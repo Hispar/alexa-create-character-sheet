@@ -32,15 +32,17 @@ class Archetype(object):
         for skill in skills_set:
             final_skills = dict(final_skills, **archetypes[skill])
 
-        counters[template_data.skills_presets[skills_set[0]]] = 13 - 5
-        counters[template_data.skills_presets[skills_set[1]]] = 9 - 5
-        counters[template_data.skills_presets[skills_set[2]]] = 5 - 5
+        counters[template_data.skills_presets[skills_set[0]]] = 13
+        counters[template_data.skills_presets[skills_set[1]]] = 9
+        counters[template_data.skills_presets[skills_set[2]]] = 5
 
         for skill_type, value in counters.items():
             if value > 0:
                 for points in range(value):
                     skill = self.get_random_skill(skill_type, final_skills)
                     final_skills[skill] += 1
+
+        print(final_skills)
 
         return final_skills
 

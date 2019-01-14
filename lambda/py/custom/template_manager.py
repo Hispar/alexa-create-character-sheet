@@ -43,7 +43,8 @@ class TemplateManager(object):
             attributes_archetype=archetype.get_attributes(),
             advantages_headers=template_data.advantages_headers,
             virtues=template_data.virtues,
-            disciplines=archetype.get_disciplines()
+            disciplines=archetype.get_disciplines(),
+            health=template_data.health
         )
 
     def get_body_text(self):

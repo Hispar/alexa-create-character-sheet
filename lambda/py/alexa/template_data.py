@@ -150,46 +150,46 @@ skills_presets = {
 
 skills_archetypes = {
     'Ecléctico': {  # 2
-        "Consciencia": 1,  # 1
-        "Conducir": 1,  # 2
-        "Interpretación": 1,  # 2
-        "Latrocinio": 1,  # 2
-        "Medicina": 1,  # 3
+        "Consciencia": 0,  # 1
+        "Conducir": 0,  # 2
+        "Interpretación": 0,  # 2
+        "Latrocinio": 0,  # 2
+        "Medicina": 0,  # 3
     },
     'Luchador': {  # 1
-        'Atletismo': 1,  # 1
-        'Pelea': 1,  # 1
-        'Armas de Fuego': 1,  # 2
-        'Pelea con Armas': 1,  # 1
-        'Intimidación': 1  # 1
+        'Atletismo': 0,  # 1
+        'Pelea': 0,  # 1
+        'Armas de Fuego': 0,  # 2
+        'Pelea con Armas': 0,  # 1
+        'Intimidación': 0  # 1
     },
     'Erudito': {  # 3
-        'Leyes': 1,
-        'Ocultismo': 1,
-        'Política': 1,
-        'Investigación': 1,
-        'Academicismo': 1
+        'Leyes': 0,
+        'Ocultismo': 0,
+        'Política': 0,
+        'Investigación': 0,
+        'Academicismo': 0
     },
     'Urbanita': {  # 2
-        'Alerta': 1,  # 1
-        'Callejeo': 1,  # 1
-        'Sigilo': 1,  # 2
-        'Supervivencia': 1,  # 2
-        'Trato con Animales': 1  # 2
+        'Alerta': 0,  # 1
+        'Callejeo': 0,  # 1
+        'Sigilo': 0,  # 2
+        'Supervivencia': 0,  # 2
+        'Trato con Animales': 0  # 2
     },
     'Social': {  # 1
-        'Empatía': 1,  # 1
-        'Subterfugio': 1,  # 1
-        'Liderazgo': 1,  # 1
-        'Etiqueta': 1,  # 2
-        'Expresión': 1  # 1
+        'Empatía': 0,  # 1
+        'Subterfugio': 0,  # 1
+        'Liderazgo': 0,  # 1
+        'Etiqueta': 0,  # 2
+        'Expresión': 0  # 1
     },
     'Actual': {  # 3
-        'Tecnología': 1,  # 3
-        'Ciencias': 1,  # 3
-        'Finanzas': 1,  # 3
-        'Informática': 1,  # 3
-        'Artesania': 1,  # 2
+        'Tecnología': 0,  # 3
+        'Ciencias': 0,  # 3
+        'Finanzas': 0,  # 3
+        'Informática': 0,  # 3
+        'Artesania': 0,  # 2
     }
 }
 
@@ -214,3 +214,13 @@ virtues = {
     2: 'Autocontrol/Instinto',
     4: 'Coraje'
 }
+
+health = [
+    'Magullado',
+    'Lastimado -1',
+    'Lesionado -1',
+    'Herido -2',
+    'Malherido -3',
+    'Tullido -5',
+    'Incapacitado',
+]

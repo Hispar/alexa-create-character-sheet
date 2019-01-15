@@ -37,11 +37,14 @@ class Archetype(object):
         counters[template_data.skills_presets[skills_set[2]]] = 5
 
         for skill_type, value in counters.items():
+            k = 0
             while value > 0:
                 skill = self.get_random_skill(skill_type, final_skills)
                 if final_skills[skill] < 3:
                     final_skills[skill] += 1
                     value -= 1
+                else:
+                    k += 1
 
         print(final_skills)
 

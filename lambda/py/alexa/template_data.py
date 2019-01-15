@@ -305,13 +305,15 @@ skills_presets = {
 
 skills_archetypes = {
     'Ecléctico': {  # 2
-        "Consciencia": 0,  # 1
-        "Conducir": 0,  # 2
-        "Interpretación": 0,  # 2
-        "Latrocinio": 0,  # 2
-        "Medicina": 0,  # 3
+        'Consciencia': 0,  # 1
+        'Conducir': 0,  # 2
+        'Interpretación': 0,  # 2
+        'Latrocinio': 0,  # 2
+        'Artesania': 0,  # 2
+        'Trato con Animales': 0  # 2
     },
     'Luchador': {  # 1
+        'Alerta': 0,  # 1
         'Atletismo': 0,  # 1
         'Pelea': 0,  # 1
         'Armas de Fuego': 0,  # 2
@@ -330,21 +332,24 @@ skills_archetypes = {
         'Callejeo': 0,  # 1
         'Sigilo': 0,  # 2
         'Supervivencia': 0,  # 2
-        'Trato con Animales': 0  # 2
+        'Trato con Animales': 0,  # 2
+        'Armas de Fuego': 0,  # 2
+        'Etiqueta': 0,  # 2
     },
     'Social': {  # 1
         'Empatía': 0,  # 1
         'Subterfugio': 0,  # 1
         'Liderazgo': 0,  # 1
         'Etiqueta': 0,  # 2
-        'Expresión': 0  # 1
+        'Expresión': 0,  # 1
+        'Consciencia': 0,  # 1
     },
     'Actual': {  # 3
         'Tecnología': 0,  # 3
         'Ciencias': 0,  # 3
         'Finanzas': 0,  # 3
         'Informática': 0,  # 3
-        'Artesania': 0,  # 2
+        'Medicina': 0,  # 3
     }
 }
 

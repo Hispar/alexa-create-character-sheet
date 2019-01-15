@@ -72,7 +72,7 @@ skills = {
 }
 
 attributes_archetypes = {
-    "brujah": [
+    "brujah": [  # 1 Físico 2 Social 3 Mental
         (
             {'F': 3, 'D': 4, 'R': 3},  # Destreza
             {'F': 4, 'D': 3, 'R': 3},  # Fuerza
@@ -87,7 +87,7 @@ attributes_archetypes = {
             {'P': 1, 'I': 1, 'AS': 3},  # Astucia
         ),
     ],
-    "ventrue": [
+    "ventrue": [  # 1 Social 2 Mental 3 Físico
         (
             {'F': 2, 'D': 2, 'R': 2},  # Equilibrado
         ), (
@@ -98,6 +98,161 @@ attributes_archetypes = {
             {'P': 2, 'I': 3, 'AS': 3},  # Equilibrado
             {'P': 2, 'I': 4, 'AS': 2},  # Inteligencia
             {'P': 2, 'I': 2, 'AS': 4},  # Astucia
+        ),
+    ],
+    "assamita": [  # 1 Físico 2 Social 3 Mental
+        (
+            {'F': 3, 'D': 4, 'R': 3},  # Destreza
+            {'F': 4, 'D': 3, 'R': 3},  # Fuerza
+            {'F': 3, 'D': 3, 'R': 4},  # Resistencia
+        ), (
+            {'C': 3, 'M': 2, 'A': 3},  # Equilibrado
+            {'C': 4, 'M': 2, 'A': 2},  # Carisma
+            {'C': 2, 'M': 2, 'A': 4},  # Apariencia
+        ), (
+            {'P': 1, 'I': 3, 'AS': 2},  # Inteligencia
+            {'P': 2, 'I': 2, 'AS': 2},  # Equilibrado
+            {'P': 1, 'I': 1, 'AS': 3},  # Astucia
+        ),
+    ],
+    "gangrel": [  # 1 Físico 2 Mental 3 Social
+        (
+            {'F': 3, 'D': 4, 'R': 3},  # Destreza
+            {'F': 4, 'D': 3, 'R': 3},  # Fuerza
+            {'F': 3, 'D': 3, 'R': 4},  # Resistencia
+        ), (
+            {'C': 2, 'M': 2, 'A': 2},  # Equilibrado
+            {'C': 2, 'M': 3, 'A': 1},  # Manipulacion
+        ), (
+            {'P': 2, 'I': 3, 'AS': 3},  # Equilibrado
+            {'P': 2, 'I': 4, 'AS': 2},  # Inteligencia
+            {'P': 2, 'I': 2, 'AS': 4},  # Astucia
+        ),
+    ],
+    "seguidores de set": [  # 1 Social 2 Mental 3 Físico
+        (
+            {'F': 2, 'D': 2, 'R': 2},  # Equilibrado
+        ), (
+            {'C': 3, 'M': 4, 'A': 3},  # Manipulación
+            {'C': 4, 'M': 3, 'A': 3},  # Carisma
+            {'C': 3, 'M': 3, 'A': 4},  # Apariencia
+        ), (
+            {'P': 2, 'I': 3, 'AS': 3},  # Equilibrado
+            {'P': 2, 'I': 4, 'AS': 2},  # Inteligencia
+            {'P': 2, 'I': 2, 'AS': 4},  # Astucia
+        ),
+    ],
+    "giovanni": [  # 1 Mental 2 Social 3 Físico
+        (
+            {'F': 2, 'D': 2, 'R': 2},  # Equilibrado
+        ), (
+            {'C': 3, 'M': 2, 'A': 3},  # Equilibrado
+            {'C': 4, 'M': 2, 'A': 2},  # Carisma
+            {'C': 2, 'M': 2, 'A': 4},  # Apariencia
+            {'C': 2, 'M': 4, 'A': 2},  # Manipulacion
+        ), (
+            {'P': 3, 'I': 4, 'AS': 3},  # Inteligencia
+            {'P': 4, 'I': 3, 'AS': 3},  # Perspicacia
+            {'P': 3, 'I': 3, 'AS': 4},  # Astucia
+        ),
+    ],
+    "lasombra": [  # 1 Mental 2 Social 3 Físico
+        (
+            {'F': 2, 'D': 2, 'R': 2},  # Equilibrado
+        ), (
+            {'C': 3, 'M': 2, 'A': 3},  # Equilibrado
+            {'C': 4, 'M': 2, 'A': 2},  # Carisma
+            {'C': 2, 'M': 2, 'A': 4},  # Apariencia
+            {'C': 2, 'M': 4, 'A': 2},  # Manipulacion
+        ), (
+            {'P': 3, 'I': 4, 'AS': 3},  # Inteligencia
+            {'P': 4, 'I': 3, 'AS': 3},  # Perspicacia
+            {'P': 3, 'I': 3, 'AS': 4},  # Astucia
+        ),
+    ],
+    "malkavian": [  # 1 Mental 2 Social 3 Físico
+        (
+            {'F': 2, 'D': 2, 'R': 2},  # Equilibrado
+        ), (
+            {'C': 3, 'M': 2, 'A': 3},  # Equilibrado
+            {'C': 4, 'M': 2, 'A': 2},  # Carisma
+            {'C': 2, 'M': 2, 'A': 4},  # Apariencia
+        ), (
+            {'P': 3, 'I': 4, 'AS': 3},  # Inteligencia
+            {'P': 4, 'I': 3, 'AS': 3},  # Perspicacia
+            {'P': 3, 'I': 3, 'AS': 4},  # Astucia
+        ),
+    ],
+    "nosferatu": [  # 1 Mental 2 Fisico 3 Social
+        (
+            {'F': 3, 'D': 2, 'R': 3},  # Equilibrado
+            {'F': 4, 'D': 2, 'R': 2},  # Fuerza
+            {'F': 2, 'D': 2, 'R': 4},  # Resistencia
+            {'F': 4, 'D': 2, 'R': 2},  # Destreza
+        ), (
+            {'C': 3, 'M': 2, 'A': 0},  # Carisma
+            {'C': 2, 'M': 3, 'A': 0},  # Manipulacion
+        ), (
+            {'P': 3, 'I': 4, 'AS': 3},  # Inteligencia
+            {'P': 4, 'I': 3, 'AS': 3},  # Perspicacia
+            {'P': 3, 'I': 3, 'AS': 4},  # Astucia
+        ),
+    ],
+    "ravnos": [  # 1 Social 2 Físico 3 Mental
+        (
+            {'F': 3, 'D': 2, 'R': 3},  # Equilibrado
+            {'F': 4, 'D': 2, 'R': 2},  # Fuerza
+            {'F': 2, 'D': 2, 'R': 4},  # Resistencia
+            {'F': 4, 'D': 2, 'R': 2},  # Destreza
+        ), (
+            {'C': 3, 'M': 4, 'A': 3},  # Manipulación
+            {'C': 4, 'M': 3, 'A': 3},  # Carisma
+            {'C': 3, 'M': 3, 'A': 4},  # Apariencia
+        ), (
+            {'P': 1, 'I': 3, 'AS': 2},  # Inteligencia
+            {'P': 2, 'I': 2, 'AS': 2},  # Equilibrado
+            {'P': 1, 'I': 1, 'AS': 3},  # Astucia
+        ),
+    ],
+    "toreador": [  # 1 Social 2 Mental 3 Físico
+        (
+            {'F': 2, 'D': 2, 'R': 2},  # Equilibrado
+        ), (
+            {'C': 3, 'M': 4, 'A': 3},  # Manipulación
+            {'C': 4, 'M': 3, 'A': 3},  # Carisma
+            {'C': 3, 'M': 3, 'A': 4},  # Apariencia
+        ), (
+            {'P': 2, 'I': 3, 'AS': 3},  # Equilibrado
+            {'P': 2, 'I': 4, 'AS': 2},  # Inteligencia
+            {'P': 2, 'I': 2, 'AS': 4},  # Astucia
+        ),
+    ],
+    "tremere": [  # 1 Mental 2 Social 3 Físico
+        (
+            {'F': 2, 'D': 2, 'R': 2},  # Equilibrado
+        ), (
+            {'C': 3, 'M': 2, 'A': 3},  # Equilibrado
+            {'C': 4, 'M': 2, 'A': 2},  # Carisma
+            {'C': 2, 'M': 2, 'A': 4},  # Apariencia
+            {'C': 2, 'M': 4, 'A': 2},  # Manipulacion
+        ), (
+            {'P': 3, 'I': 4, 'AS': 3},  # Inteligencia
+            {'P': 4, 'I': 3, 'AS': 3},  # Perspicacia
+            {'P': 3, 'I': 3, 'AS': 4},  # Astucia
+        ),
+    ],
+    "tzimisce": [  # 1 Mental 2 Social 3 Físico
+        (
+            {'F': 2, 'D': 2, 'R': 2},  # Equilibrado
+        ), (
+            {'C': 3, 'M': 2, 'A': 3},  # Equilibrado
+            {'C': 4, 'M': 2, 'A': 2},  # Carisma
+            {'C': 2, 'M': 2, 'A': 4},  # Apariencia
+            {'C': 2, 'M': 4, 'A': 2},  # Manipulacion
+        ), (
+            {'P': 3, 'I': 4, 'AS': 3},  # Inteligencia
+            {'P': 4, 'I': 3, 'AS': 3},  # Perspicacia
+            {'P': 3, 'I': 3, 'AS': 4},  # Astucia
         ),
     ],
 }

@@ -39,7 +39,7 @@ BODY_TEXT = _("Aqui tienes tu personaje de vampiro\r\n"
              "{name} del clan {clan} ha sido creado."
              )
 
-PROGRESSIVE_PDF_CREATION = _("Creando el la ficha de {name}, espera un momento.")
+PROGRESSIVE_PDF_CREATION = _("Creando la ficha de {name}, espera un momento.")
 
 # The HTML body of the email.
 BODY_HTML = """<html>

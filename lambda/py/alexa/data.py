@@ -28,16 +28,18 @@ CREATE_CHARACTER = _("Crear personaje")
 CREATE_CHARACTER_ASK_NAME = _("¿Como quieres llamar a tu personaje?")
 CREATE_CHARACTER_ASK_CLAN = _("¿A que clan quieres pertenecer?")
 
-CREATE_CHARACTER_CONFIRMATION = _("Creando a {name} de los {clan}.")
+CREATE_CHARACTER_CONFIRMATION = _("Se ha creado a {name} de los {clan}. Revisa tu correo.")
 
 # convertHtmlToPdf(sourceHtml, outputFilename)
 # The subject line for the email.
 SUBJECT = "Tu ficha de personaje - {name} {clan}"
 
 # The email body for recipients with non-HTML email clients.
-BODY_TEXT = ("Aqui tienes tu personaje de vampiro\r\n"
+BODY_TEXT = _("Aqui tienes tu personaje de vampiro\r\n"
              "{name} del clan {clan} ha sido creado."
              )
+
+PROGRESSIVE_PDF_CREATION = _("Creando el la ficha de {name}, espera un momento.")
 
 # The HTML body of the email.
 BODY_HTML = """<html>

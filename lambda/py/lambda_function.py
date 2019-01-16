@@ -12,7 +12,9 @@ from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model.dialog import ElicitSlotDirective, DelegateDirective
 from ask_sdk_model import (Intent, IntentConfirmationStatus, Slot, SlotConfirmationStatus, DialogState)
+from ask_sdk_model.directive import Directive
 from ask_sdk_model.services import ServiceException
+from ask_sdk_model.services.directive import SpeakDirective, Header, SendDirectiveRequest
 
 from ask_sdk_model.ui import SimpleCard, AskForPermissionsConsentCard
 from ask_sdk_model import Response
@@ -97,8 +99,9 @@ class CreateCharacterIntent(AbstractRequestHandler):
             # is still in the sandbox, this address must be verified.
             template = TemplateManager(name=name, clan=clan)
             subject = template.get_subject()
-
             document = template.get_html()
+
+            self.progressive_response(handler_input, name)
             pdf = PdfRenderer()
             pdf_file = pdf.generate(document)
 
@@ -108,6 +111,17 @@ class CreateCharacterIntent(AbstractRequestHandler):
             mail.send()
 
         return response_builder.response
+
+    def progressive_response(self, handler_input, name):
+        request_id_holder = handler_input.request_envelope.request.request_id
+        directive_header = Header(request_id=request_id_holder)
+        speech = SpeakDirective(speech=data.PROGRESSIVE_PDF_CREATION.format(name=name))
+        directive_request = SendDirectiveRequest(
+            header=directive_header, directive=speech)
+
+        directive_service_client = handler_input.service_client_factory.get_directive_service()
+        directive_service_client.enqueue(directive_request)
+        return
 
 
 class HelpIntentHandler(AbstractRequestHandler):

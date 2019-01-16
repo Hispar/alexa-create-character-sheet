@@ -380,7 +380,7 @@ health = [
     'Lastimado -1',
     'Lesionado -1',
     'Herido -2',
-    'Malherido -3',
+    'Malherido -2',
     'Tullido -5',
     'Incapacitado',
 ]

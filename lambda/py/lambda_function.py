@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Simple fact sample app."""
-import io
 import logging
 
 from ask_sdk_core.api_client import DefaultApiClient
@@ -10,9 +9,8 @@ from ask_sdk_core.dispatch_components import (
     AbstractRequestInterceptor, AbstractResponseInterceptor)
 from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_core.handler_input import HandlerInput
-from ask_sdk_model.dialog import ElicitSlotDirective, DelegateDirective
-from ask_sdk_model import (Intent, IntentConfirmationStatus, Slot, SlotConfirmationStatus, DialogState)
-from ask_sdk_model.directive import Directive
+from ask_sdk_model.dialog import DelegateDirective
+from ask_sdk_model import (DialogState)
 from ask_sdk_model.services import ServiceException
 from ask_sdk_model.services.directive import SpeakDirective, Header, SendDirectiveRequest
 

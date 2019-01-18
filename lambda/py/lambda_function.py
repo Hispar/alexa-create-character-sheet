@@ -93,13 +93,13 @@ class CreateCharacterIntent(AbstractRequestHandler):
             # This address must be verified with Amazon SES.
             sender = constants.sender
 
+            self.progressive_response(handler_input, name)
             # Replace recipient@example.com with a "To" address. If your account
             # is still in the sandbox, this address must be verified.
             template = TemplateManager(name=name, clan=clan)
             subject = template.get_subject()
             document = template.get_html()
 
-            self.progressive_response(handler_input, name)
             pdf = PdfRenderer()
             pdf_file = pdf.generate(document)
 
